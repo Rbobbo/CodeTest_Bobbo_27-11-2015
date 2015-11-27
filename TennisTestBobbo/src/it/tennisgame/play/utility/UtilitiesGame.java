@@ -15,12 +15,23 @@ public class UtilitiesGame {
     private static final String twoPoints  = "thirty";
     private static final String threePoints  = "forty";
     
+    private static final Map<String, String> decodePointsDescr = new HashMap<String, String>();
+    
     public  void addSinglePoint(PlayerDAO player){
         
         player.setPlayerPoints( player.getPlayerPoints() + 1 );
     }
  
-    
+    public UtilitiesGame() {
+        
+        decodePointsDescr.put("0", zeroPoints);
+        decodePointsDescr.put("1", onePoints);
+        decodePointsDescr.put("2", onePoints);
+        decodePointsDescr.put("3", twoPoints);
+        decodePointsDescr.put("4", threePoints);
+
+        
+    }
     
     
     /**
@@ -38,22 +49,11 @@ public class UtilitiesGame {
         
             for(int i =0; i < players.length ; i++)
             {
-                PlayerDAO playerTmp =  players[i];
-                
-                String decodeString = "" ;
-                switch (playerTmp.getPlayerPoints()) {
-
-                    case 0 : decodeString = zeroPoints;
-                    case 1 : decodeString = onePoints;
-                    case 2 : decodeString = twoPoints;
-                    case 3 : decodeString = threePoints;
-                    default: decodeString = "" ;
-                }
-                playerTmp.setPointDescription(decodeString);
-                
+                String decodeString = this.decodePointsDescr.get(players[i].getPlayerPoints()) ;
+                players[i].setPointDescription(decodeString);
                 
             }
-        
+
                 
         
     }
