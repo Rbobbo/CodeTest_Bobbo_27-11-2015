@@ -23,25 +23,50 @@ public class StartFirstPhase {
         
     }
     
-    public void match(int player) {
+    private PlayerDAO checkIsAnyoneWonEasy(PlayerDAO... players) {
         
+        PlayerDAO result = null;
+        
+        for (PlayerDAO playerTmp : players) {
+            if(playerTmp.getPlayerPoints() == 4) {
+                result = playerTmp;
+            }
+        }
+        
+        return result;
+    }
+    
+    /**
+     * 
+     * @param player
+     * @return true if the game finish
+     */
+    public boolean match(int player) {
+        
+        boolean isFinished = false;
         if(player == 1) {
             uty.addSinglePoint(playerOne);
         }
         else {
-            uty.addSinglePoint(playerOne);
+            uty.addSinglePoint(playerTwo);
         }
         
-        uty.decodePoints(playerOne,playerTwo);
+        PlayerDAO playerVictorius = checkIsAnyoneWonEasy(playerOne,playerTwo);
+        if(playerVictorius != null) {
+             System.out.println(playerVictorius + " won");
+             isFinished = true;
+        }
+        else {
+
+            uty.decodePoints(playerOne,playerTwo);
+
+            System.out.println(playerOne+" have : "+playerOne.getPlayerPoints()+" points"+
+                    " then : "+playerOne.getPointDescription());
+            System.out.println(playerTwo+" have : "+playerTwo.getPlayerPoints()+" points"+
+                    " then : "+playerTwo.getPointDescription());
+        }
         
-        
-        
-        
-        System.out.println(playerOne+" have : "+playerOne.getPlayerPoints()+" points"+
-                " then : "+playerOne.getPointDescription());
-        System.out.println(playerTwo+" have : "+playerTwo.getPlayerPoints()+" points"+
-                " then : "+playerTwo.getPointDescription());
-        
+        return isFinished;
     }
     
     

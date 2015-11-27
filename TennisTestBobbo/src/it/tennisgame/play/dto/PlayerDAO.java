@@ -8,11 +8,18 @@ package it.tennisgame.play.dto;
  */
 public class PlayerDAO {
     
-    private int playerId;
-
+    private boolean samePoints = false;
     private String playerName = "";
     private int playerPoints  = 0;
     private String pointDescription = "love";
+
+    public boolean isSamePoints() {
+        return samePoints;
+    }
+
+    public void setSamePoints(boolean samePoints) {
+        this.samePoints = samePoints;
+    }
 
     public String getPointDescription() {
         return pointDescription;
@@ -34,13 +41,6 @@ public class PlayerDAO {
         this.playerName = playerName;
     }
 
-    public int getPlayerId() {
-        return playerId;
-    }
-
-    public void setPlayerId(int playerId) {
-        this.playerId = playerId;
-    }
     public int getPlayerPoints() {
         return playerPoints;
     }

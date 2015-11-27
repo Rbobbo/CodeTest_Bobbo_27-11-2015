@@ -18,7 +18,7 @@ public class TennisTestBobbo {
         char inputmanager = (char) System.in.read()  ;
         
         StartFirstPhase first = new StartFirstPhase();
-        first.match(inputmanager);
+        while(first.match(inputmanager));
         
     }
     

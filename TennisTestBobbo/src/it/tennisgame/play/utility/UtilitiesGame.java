@@ -37,25 +37,47 @@ public class UtilitiesGame {
     /**
      * this class decode the point that the player have
      * from 0 to 3 points
-     * (This version of method input is usefull only for a scalable 
-     * version of the application, and for exercise)
      * @param players
      * @return 
      */
-    public void decodePoints(PlayerDAO... players) {
+    public void decodePoints(PlayerDAO playerOne, PlayerDAO playerTwo) {
         
+        boolean isPointsEquals = checkIsAllPlayersEqualPoints(playerOne,playerTwo);
         
-        //Map<Integer, PlayerDAO> result = new HashMap<Integer, PlayerDAO>();
-        
-            for(int i =0; i < players.length ; i++)
-            {
-                String decodeString = this.decodePointsDescr.get(players[i].getPlayerPoints()) ;
-                players[i].setPointDescription(decodeString);
-                
-            }
+        if(isPointsEquals) {
+            
+        }
+        else {
+            
+        }
+        String decodeString = this.decodePointsDescr.get(playerOne.getPlayerPoints()+"") ;
+        playerOne.setPointDescription(decodeString);
+        decodeString = this.decodePointsDescr.get(playerTwo.getPlayerPoints()+"") ;
+        playerTwo.setPointDescription(decodeString);
+
 
                 
         
     }
+
+    /**
+     * check if the two players have the same points and if 
+     * the points are 3
+     * @param playerOne
+     * @param playerTwo
+     * @return 
+     */
+    private boolean checkIsAllPlayersEqualPoints(PlayerDAO playerOne, PlayerDAO playerTwo) {
+        
+        boolean isSamePoints = true;
+        
+        if(playerOne.getPlayerPoints() != playerTwo.getPlayerPoints()) {
+            isSamePoints = false;
+        }
+        // TODO controlla numero punti e se sono 3 pari
+        return isSamePoints;
+    }
+
+
     
 }
