@@ -50,10 +50,7 @@ public class StartFirstPhase {
         
         boolean isFinished = false;
         boolean isPointsEquals = uty.checkIsAllPlayersEqualPoints(playerOne,playerTwo);
-        if(isPointsEquals)
-        {
-            cleanAdvantage(playerOne,playerTwo);
-        }
+        
         if(player == 1)
         {
             uty.addSinglePoint(playerOne, isPointsEquals);
@@ -65,14 +62,16 @@ public class StartFirstPhase {
         
         // check anyone win 
         PlayerDAO playerVictorius = checkIsAnyoneWon(playerOne,playerTwo);
+        if(isPointsEquals)
+        {
+            cleanAdvantage(playerOne,playerTwo);
+        }
         if(playerVictorius != null) {
              System.out.println(playerVictorius + " won");
              isFinished = true;
         }
         else
         {
-           
-            
             uty.decodePoints(isPointsEquals, playerOne,playerTwo);
 
             System.out.println(playerOne+" have : "+playerOne.getPlayerPoints()+" points"+
@@ -90,7 +89,7 @@ public class StartFirstPhase {
      * @param playerTwo 
      */
     private void cleanAdvantage(PlayerDAO playerOne, PlayerDAO playerTwo) {
-        if(playerOne.getPlayerAdvantage() == 2 && playerOne.getPlayerAdvantage() == 2 ) 
+        if(playerOne.getPlayerAdvantage() == 1 && playerTwo.getPlayerAdvantage() == 1 ) 
         {
             playerOne.setPlayerAdvantage(0);
             playerTwo.setPlayerAdvantage(0);

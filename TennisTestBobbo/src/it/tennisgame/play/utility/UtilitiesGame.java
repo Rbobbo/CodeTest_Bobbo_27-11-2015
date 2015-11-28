@@ -20,9 +20,20 @@ public class UtilitiesGame {
     
     private static final Map<String, String> decodePointsDescr = new HashMap<String, String>();
     
+    public UtilitiesGame()
+    {
+        decodePointsDescr.put("0", zeroPoints);
+        decodePointsDescr.put("1", onePoints);
+        decodePointsDescr.put("2", twoPoints);
+        decodePointsDescr.put("3", threePoints);
+        decodePointsDescr.put("+0", equalsAfterThreePoints);
+        decodePointsDescr.put("+1", advantage);
+
+    }
+    
     /**
      * add points to the player
-     * if it is an advantage, add pointAdvantage
+     * when advantage, add pointAdvantage
      * @param player
      * @param isForAdvantage 
      */
@@ -38,28 +49,19 @@ public class UtilitiesGame {
         }
     }
  
-    public UtilitiesGame() {
-        decodePointsDescr.put("0", zeroPoints);
-        decodePointsDescr.put("1", onePoints);
-        decodePointsDescr.put("2", twoPoints);
-        decodePointsDescr.put("3", threePoints);
-        decodePointsDescr.put("+1", equalsAfterThreePoints);
-        decodePointsDescr.put("+2", advantage);
-
-    }
-    
     /**
      * this class decode the point that the player have
      * from 0 to 3 points
      * @param players
      * @return 
      */
-    public void decodePoints(boolean activateAdvantage, PlayerDAO playerOne, PlayerDAO playerTwo) {
-        
-        String searchDecode = activateAdvantage ? "+"+playerOne.getPlayerAdvantage() : ""+playerOne.getPlayerPoints();
-        String decodeString = this.decodePointsDescr.get(searchDecode) ;
+    public void decodePoints(boolean activateAdvantage, PlayerDAO playerOne, PlayerDAO playerTwo)
+    {
+        String searchDecodePlayerOne = activateAdvantage ? "+"+playerOne.getPlayerAdvantage() : ""+playerOne.getPlayerPoints();
+        String searchDecodePlayerTwo = activateAdvantage ? "+"+playerTwo.getPlayerAdvantage() : ""+playerTwo.getPlayerPoints();
+        String decodeString = this.decodePointsDescr.get(searchDecodePlayerOne) ;
         playerOne.setPointDescription(decodeString);
-        decodeString = this.decodePointsDescr.get(searchDecode) ;
+        decodeString = this.decodePointsDescr.get(searchDecodePlayerTwo) ;
         playerTwo.setPointDescription(decodeString);
     }
 
@@ -70,8 +72,8 @@ public class UtilitiesGame {
      * @param playerTwo
      * @return 
      */
-    public boolean checkIsAllPlayersEqualPoints(PlayerDAO playerOne, PlayerDAO playerTwo) {
-        
+    public boolean checkIsAllPlayersEqualPoints(PlayerDAO playerOne, PlayerDAO playerTwo)
+    {
         boolean isSamePoints = false;
         
         if(playerOne.getPlayerPoints() != playerTwo.getPlayerPoints()) {
@@ -80,7 +82,6 @@ public class UtilitiesGame {
                 playerOne.getPlayerPoints() == playerTwo.getPlayerPoints() ) {
             isSamePoints = true;
         }
-        // TODO controlla numero punti e se sono 3 pari
         return isSamePoints;
     }
 
