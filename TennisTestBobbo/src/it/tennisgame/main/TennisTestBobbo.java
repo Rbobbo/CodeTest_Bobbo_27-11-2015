@@ -15,10 +15,30 @@ public class TennisTestBobbo {
      */
     public static void main(String[] args) throws IOException {
         
-        char inputmanager = (char) System.in.read()  ;
-        
+        boolean isContinue = true;
         StartFirstPhase first = new StartFirstPhase();
-        while(first.match(inputmanager));
+        System.out.println("Write : \n 1 for asign point to first player; \n 2 for second player; "
+                + "0 exit game");
+        while(isContinue) {
+            
+            char inputmanager = (char) System.in.read()  ;
+            
+            int inputSelected = 0;
+            if(inputmanager == '1') {
+                // player one selected
+                inputSelected = 1;
+            } else if(inputmanager == '2') {
+                // player two selected
+                inputSelected = 2;
+            } else if(inputmanager == '0'){
+                // exit
+                break;
+            } else {
+                continue;
+            }
+            
+            isContinue = !first.match(inputSelected);
+        }
         
     }
     

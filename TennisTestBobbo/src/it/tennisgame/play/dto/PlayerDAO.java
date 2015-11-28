@@ -12,7 +12,17 @@ public class PlayerDAO {
     private String playerName = "";
     private int playerPoints  = 0;
     private String pointDescription = "love";
+    private int playerAdvantage = 0;
 
+    public int getPlayerAdvantage() {
+        return playerAdvantage;
+    }
+
+    public void setPlayerAdvantage(int playerAdvantage) {
+        this.playerAdvantage = playerAdvantage;
+    }
+
+    
     public boolean isSamePoints() {
         return samePoints;
     }

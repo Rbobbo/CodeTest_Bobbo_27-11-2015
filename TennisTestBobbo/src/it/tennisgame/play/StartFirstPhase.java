@@ -2,7 +2,6 @@ package it.tennisgame.play;
 
 import it.tennisgame.play.dto.PlayerDAO;
 import it.tennisgame.play.utility.UtilitiesGame;
-import java.util.Map;
 
 /**
  *
@@ -23,16 +22,22 @@ public class StartFirstPhase {
         
     }
     
-    private PlayerDAO checkIsAnyoneWonEasy(PlayerDAO... players) {
-        
+    /**
+     * 
+     * @param players
+     * @return player that have done 4 points 
+     */
+    private PlayerDAO checkIsAnyoneWon(PlayerDAO... players) {
         PlayerDAO result = null;
         
-        for (PlayerDAO playerTmp : players) {
-            if(playerTmp.getPlayerPoints() == 4) {
+        for (PlayerDAO playerTmp : players)
+        {
+            if(playerTmp.getPlayerPoints() == 4 || playerTmp.getPlayerAdvantage() == 2)
+            {
                 result = playerTmp;
+
             }
         }
-        
         return result;
     }
     
@@ -44,21 +49,31 @@ public class StartFirstPhase {
     public boolean match(int player) {
         
         boolean isFinished = false;
-        if(player == 1) {
-            uty.addSinglePoint(playerOne);
+        boolean isPointsEquals = uty.checkIsAllPlayersEqualPoints(playerOne,playerTwo);
+        if(isPointsEquals)
+        {
+            cleanAdvantage(playerOne,playerTwo);
         }
-        else {
-            uty.addSinglePoint(playerTwo);
+        if(player == 1)
+        {
+            uty.addSinglePoint(playerOne, isPointsEquals);
+        }
+        else
+        {
+            uty.addSinglePoint(playerTwo, isPointsEquals);
         }
         
-        PlayerDAO playerVictorius = checkIsAnyoneWonEasy(playerOne,playerTwo);
+        // check anyone win 
+        PlayerDAO playerVictorius = checkIsAnyoneWon(playerOne,playerTwo);
         if(playerVictorius != null) {
              System.out.println(playerVictorius + " won");
              isFinished = true;
         }
-        else {
-
-            uty.decodePoints(playerOne,playerTwo);
+        else
+        {
+           
+            
+            uty.decodePoints(isPointsEquals, playerOne,playerTwo);
 
             System.out.println(playerOne+" have : "+playerOne.getPlayerPoints()+" points"+
                     " then : "+playerOne.getPointDescription());
@@ -67,6 +82,19 @@ public class StartFirstPhase {
         }
         
         return isFinished;
+    }
+
+    /**
+     * the method set to 0 the advantage when both are equals 2
+     * @param playerOne
+     * @param playerTwo 
+     */
+    private void cleanAdvantage(PlayerDAO playerOne, PlayerDAO playerTwo) {
+        if(playerOne.getPlayerAdvantage() == 2 && playerOne.getPlayerAdvantage() == 2 ) 
+        {
+            playerOne.setPlayerAdvantage(0);
+            playerTwo.setPlayerAdvantage(0);
+        }
     }
     
     

@@ -14,25 +14,39 @@ public class UtilitiesGame {
     private static final String onePoints  = "fifteen";
     private static final String twoPoints  = "thirty";
     private static final String threePoints  = "forty";
+    private static final String equalsAfterThreePoints  = "deuce";
+    private static final String advantage  = "advantage";
+    
     
     private static final Map<String, String> decodePointsDescr = new HashMap<String, String>();
     
-    public  void addSinglePoint(PlayerDAO player){
+    /**
+     * add points to the player
+     * if it is an advantage, add pointAdvantage
+     * @param player
+     * @param isForAdvantage 
+     */
+    public  void addSinglePoint(PlayerDAO player, boolean isForAdvantage){
         
-        player.setPlayerPoints( player.getPlayerPoints() + 1 );
+        if(isForAdvantage) {
+            player.setPlayerAdvantage(player.getPlayerAdvantage() +1);
+            
+        }
+        else {
+            player.setPlayerPoints( player.getPlayerPoints() + 1 );
+            
+        }
     }
  
     public UtilitiesGame() {
-        
         decodePointsDescr.put("0", zeroPoints);
         decodePointsDescr.put("1", onePoints);
-        decodePointsDescr.put("2", onePoints);
-        decodePointsDescr.put("3", twoPoints);
-        decodePointsDescr.put("4", threePoints);
+        decodePointsDescr.put("2", twoPoints);
+        decodePointsDescr.put("3", threePoints);
+        decodePointsDescr.put("+1", equalsAfterThreePoints);
+        decodePointsDescr.put("+2", advantage);
 
-        
     }
-    
     
     /**
      * this class decode the point that the player have
@@ -40,39 +54,31 @@ public class UtilitiesGame {
      * @param players
      * @return 
      */
-    public void decodePoints(PlayerDAO playerOne, PlayerDAO playerTwo) {
+    public void decodePoints(boolean activateAdvantage, PlayerDAO playerOne, PlayerDAO playerTwo) {
         
-        boolean isPointsEquals = checkIsAllPlayersEqualPoints(playerOne,playerTwo);
-        
-        if(isPointsEquals) {
-            
-        }
-        else {
-            
-        }
-        String decodeString = this.decodePointsDescr.get(playerOne.getPlayerPoints()+"") ;
+        String searchDecode = activateAdvantage ? "+"+playerOne.getPlayerAdvantage() : ""+playerOne.getPlayerPoints();
+        String decodeString = this.decodePointsDescr.get(searchDecode) ;
         playerOne.setPointDescription(decodeString);
-        decodeString = this.decodePointsDescr.get(playerTwo.getPlayerPoints()+"") ;
+        decodeString = this.decodePointsDescr.get(searchDecode) ;
         playerTwo.setPointDescription(decodeString);
-
-
-                
-        
     }
 
     /**
-     * check if the two players have the same points and if 
-     * the points are 3
+     * check if the players have the same points and if 
+     * the points are 3 return true, otherwise false
      * @param playerOne
      * @param playerTwo
      * @return 
      */
-    private boolean checkIsAllPlayersEqualPoints(PlayerDAO playerOne, PlayerDAO playerTwo) {
+    public boolean checkIsAllPlayersEqualPoints(PlayerDAO playerOne, PlayerDAO playerTwo) {
         
-        boolean isSamePoints = true;
+        boolean isSamePoints = false;
         
         if(playerOne.getPlayerPoints() != playerTwo.getPlayerPoints()) {
             isSamePoints = false;
+        } else if( playerOne.getPlayerPoints() == 3 &&
+                playerOne.getPlayerPoints() == playerTwo.getPlayerPoints() ) {
+            isSamePoints = true;
         }
         // TODO controlla numero punti e se sono 3 pari
         return isSamePoints;
