@@ -7,19 +7,26 @@ import it.tennisgame.play.utility.UtilitiesGame;
  *
  * @author Riccardo Bobbo
  */
-public class StartFirstPhase {
-    
+public class StartFirstPhase
+{
     private PlayerDAO playerOne ;
     private PlayerDAO playerTwo;
-    UtilitiesGame uty ;
+    private UtilitiesGame uty ;
     
-    public StartFirstPhase() {
-        
+    public StartFirstPhase()
+    {
         this.playerOne = new PlayerDAO("First Player");
         this.playerTwo = new PlayerDAO("Second Player");
         uty = new UtilitiesGame();
         
-        
+    }
+
+    public PlayerDAO getPlayerOne() {
+        return playerOne;
+    }
+
+    public PlayerDAO getPlayerTwo() {
+        return playerTwo;
     }
     
     /**

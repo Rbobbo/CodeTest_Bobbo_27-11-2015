@@ -17,10 +17,11 @@ public class TennisTestBobbo {
         
         boolean isContinue = true;
         StartFirstPhase first = new StartFirstPhase();
-        System.out.println("Write : \n 1 for asign point to first player; \n 2 for second player; "
+        System.out.println("Write : \n"
+                + "1 assign point to \""+first.getPlayerOne()+"\" ; \n"
+                + "2 assign point to \""+first.getPlayerTwo()+"\" ; \n"
                 + "0 exit game");
         while(isContinue) {
-            
             char inputmanager = (char) System.in.read()  ;
             
             int inputSelected = 0;
@@ -37,15 +38,17 @@ public class TennisTestBobbo {
                 continue;
             }
             
-            isContinue = !first.match(inputSelected);
+            isContinue = startGame(first,inputSelected);
         }
         
     }
     
-    public static void startGame(int pointsForPlayer1, int pointsForPlayer2) throws IOException {
-        StartFirstPhase first = new StartFirstPhase();
-        
+    public static boolean startGame(StartFirstPhase gamesPhase, int inputSelected) throws IOException
+    {
+       boolean isContinue = !gamesPhase.match(inputSelected);
        
+       return isContinue;
+        
     }
     
 }
